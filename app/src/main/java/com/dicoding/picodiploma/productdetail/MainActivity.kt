@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setupView()
         setUpData()
     }
-0
+
     private fun setUpData() {
         val data = RemoteDataSource(this)
         val product = data.getDetailProduct()
@@ -37,6 +37,25 @@ class MainActivity : AppCompatActivity() {
                 priceTextView.text = price.withCurrencyFormat()
                 dateTextView.text = getString(R.string.dateFormat, date.withDateFormat())
                 ratingTextView.text = getString(R.string.ratingFormat, rating.withNumberingFormat(), countRating.withNumberingFormat())
+            }
+        }
+
+        setupAccessibility(product)
+    }
+
+    private fun setupAccessibility(product: ProductModel) {
+        product.apply {
+            binding.apply {
+                settingImageView.contentDescription = getString(R.string.settingDescription)
+                previewImageView.contentDescription = getString(R.string.previewDescription)
+                colorTextView.contentDescription = getString(R.string.colorDescription, color)
+                sizeTextView.contentDescription = getString(R.string.sizeDescription, size)
+                ratingTextView.contentDescription = getString(
+                    R.string.ratingDescription,
+                    rating.withNumberingFormat(),
+                    countRating.withNumberingFormat()
+                )
+                storeTextView.contentDescription = getString(R.string.storeDescription, store)
             }
         }
     }
